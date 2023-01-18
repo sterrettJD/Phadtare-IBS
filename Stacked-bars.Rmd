@@ -1,0 +1,73 @@
+---
+title: "Stacked bar plots"
+author: "John Sterrett"
+date: "2023-01-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+pacman::p_load(tidyverse,
+               data.table,
+               ggplot2,
+               phyloseq,
+               patchwork,
+               microshades,
+               cowplot,
+               qiime2R)
+```
+
+# Load data
+```{r}
+pseq <- qza_to_phyloseq(features="Data/noMito_noChloro-filtered-table.qza",
+                        taxonomy="Data/taxonomy-silva.qza",
+                        metadata="Data/IBS-metadata.txt")
+
+temp <- sample_data(pseq) %>% as.data.frame()
+temp[temp$IBS.Type=="control", "IBS.Type"] <- "Healthy Control"
+sample_data(pseq) <- temp
+
+lipids <- fread("Data/IBS-metabolome-data.txt")
+metadata <- fread("Data/IBS-metadata.txt") 
+
+```
+
+# Taxa barplot
+```{r}
+# prep the microshades colors
+mdf_prep <- prep_mdf(pseq, subgroup_level="Genus")
+# sort the phylum names
+phylum_table <- tax_glom(pseq, taxrank="Phylum", ) %>% otu_table()
+phyla.otunames <- rownames(phylum_table)
+taxonomy.table <- pseq %>% tax_table() %>% as.data.frame()
+
+phylums <- taxonomy.table[phyla.otunames,"Phylum"]
+
+sorted_phylums <- phylums[order(rowSums(phylum_table), decreasing=T)]
+# create the colors object
+color_objs_GP <- create_color_dfs(mdf_prep, selected_groups = sorted_phylums[5:1], 
+                                  cvd = TRUE)
+# Extract
+mdf_GP <- color_objs_GP$mdf
+cdf_GP <- color_objs_GP$cdf
+# create a custom legend
+GP_legend <-custom_legend(mdf_GP, cdf_GP, 
+                          legend_key_size=unit(0.4, "cm"),
+                          legend_text_size=10)
+
+# plot
+plot <- plot_microshades(mdf_GP, cdf_GP)
+plot_1 <- plot + scale_y_continuous(labels = scales::percent, expand = expansion(0)) +
+  theme(legend.position = "none")  +
+  theme(axis.text.x = element_blank()) +
+  facet_grid(~IBS.Type, scales="free_x", space="free_x"
+             )
+
+multi <- plot_grid(plot_1, GP_legend,  rel_widths = c(1, .25))
+multi
+
+ggsave("Figures/taxa-bar-phyum-genus-microshades.pdf",plot=multi,height=8,width=10)
+
+
+```
