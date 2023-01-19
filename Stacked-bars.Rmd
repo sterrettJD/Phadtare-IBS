@@ -219,3 +219,39 @@ multi
 
 ggsave("Figures/lipid-stacked-bar-omega-name-microshades.pdf",plot=multi,height=8,width=10)
 ```
+
+### Omega-name faceted
+```{r}
+# prep the microshades colors
+mdf_prep <- prep_mdf_norel(mbl.pseq, subgroup_level="ta4")
+
+# create the colors object
+color_objs_GP <- create_color_dfs(mdf_prep, group_level="ta2", subgroup_level="ta4",
+                                  selected_groups = c("Omega 5", "Omega 3", "Omega 6", "Omega 9", "Saturated"), 
+                                  cvd = TRUE)
+# Extract
+mdf_GP <- color_objs_GP$mdf
+cdf_GP <- color_objs_GP$cdf
+# create a custom legend
+GP_legend <-custom_legend(mdf_GP, cdf_GP, 
+                          group_level="ta2", subgroup_level="ta4",
+                          legend_key_size=unit(0.4, "cm"),
+                          legend_text_size=10)
+
+# plot
+plot <- plot_microshades(mdf_GP, cdf_GP)
+plot_1 <- plot + scale_y_continuous(expand = expansion(0)) +
+    theme_bw() +
+    theme(legend.position = "none")  +
+    theme(axis.text.x = element_blank()) +
+    facet_grid(factor(ta2, levels=c("Saturated", "Omega 9", "Omega 6", "Omega 3", "Omega 5", "Omega 7"))~(factor(IBS.Type,
+                           levels=c("Healthy Control", "IBS-D", "IBS-M", "IBS-C"))), 
+             scales="free", space="free_x"
+             ) +
+    ylab(latex2exp::TeX("$\\mu$g/g fecal sample dry mass"))
+
+multi <- plot_grid(plot_1, GP_legend,  rel_widths = c(1, .25))
+multi
+
+ggsave("Figures/lipid-faceted-bar-omega-name-microshades.pdf",plot=multi,height=8,width=10)
+```
