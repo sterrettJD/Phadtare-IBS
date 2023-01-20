@@ -1,0 +1,19 @@
+---
+title: "PhILR"
+author: "John Sterrett"
+date: "2023-01-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+pacman::p_load(tidyverse,
+               data.table,
+               ggplot2,
+               phyloseq,
+               qiime2R,
+               philr)
+```
+
+#
