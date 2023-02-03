@@ -118,6 +118,22 @@ top.coords <- names(top.coords)
 
 tc.names <- sapply(top.coords, function(x) name.balance(phy_tree(pseq), tax_table(pseq), x))
 tc.names
+
+for(c in top.coords){
+
+    initial.name <- name.balance(phy_tree(pseq), tax_table(pseq), c)
+    
+    if(grepl("Kingdom", initial.name)){
+        print("------------")
+        print(c)
+        votes <- name.balance(phy_tree(pseq), tax_table(pseq), c, return.votes=c("up", "down"))
+        print("up:")
+        print(votes$up.votes)
+        print("down:")
+        print(rbindvotes$down.votes)
+    }
+}
+
 ```
 
 # Tree
@@ -134,25 +150,25 @@ p <- ggtree(tree) +
 
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[1], 
                  p=p, 
-                 labels=paste0(rep(top.coords[1],2), c("+", "-")),
+                 labels=paste(rep(top.coords[1],2), c("num", "denom")),
                  offset.text=0.15, bar=FALSE)
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[2], 
                  p=p, 
-                 labels=paste0(rep(top.coords[2],2), c("+", "-")),
+                 labels=paste(rep(top.coords[2],2), c("num", "denom")),
                  offset.text=0.15, bar=FALSE)
 
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[3], 
                  p=p, 
-                 labels=paste0(rep(top.coords[3],2), c("+", "-")),
+                 labels=paste(rep(top.coords[3],2), c("num", "denom")),
                  offset.text=0.15, bar=FALSE)
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[4], 
                  p=p, 
-                 labels=paste0(rep(top.coords[4],2), c("+", "-")),
+                 labels=paste(rep(top.coords[4],2), c("num", "denom")),
                  #labels=c("",""),
                  offset.text=0.15, bar=FALSE)
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[5], 
                  p=p, 
-                 labels=paste0(rep(top.coords[5],2), c("+", "-")),
+                 labels=paste(rep(top.coords[5],2), c("num", "denom")),
                  #labels=c("",""),
                  offset.text=0.15, bar=FALSE)
 p
@@ -162,14 +178,19 @@ p
 # Boxplots
 ```{r}
 philr.long <- convert_to_long(philr.dat, labels=metadata$TOTAL.EST.HFCS..per.year.in.grams.) %>%
-  filter(coord %in% top.coords[1:5])
+  filter(coord %in% top.coords)
+
+philr.long$coord <- factor(philr.long$coord,
+                           levels=c("n14", "n55", "n15", "n119", "n2")) 
 
 scatter.labels <- paste(names(tc.names), tc.names, sep=": ")
 names(scatter.labels) <- names(tc.names)
 
-p2 <- ggplot(philr.long, aes(x=labels, y=value)) +
-  geom_point(fill='lightgrey') +
-  facet_wrap(.~coord, scales='free', ncol=1,
+p2 <- ggplot(philr.long, aes(x=labels, y=value, color=coord)) +
+  geom_point() +
+  scale_color_manual(guide="none", values = c('#a6cee3', '#1f78b4', '#b2df8a', '#fb9a99', '#33a02c')) +
+  facet_wrap(.~coord,
+             scales='free', ncol=1,
              labeller=labeller(coord=scatter.labels)) +
   labs(x = '', y = 'Balance Value') +
   theme_bw()
