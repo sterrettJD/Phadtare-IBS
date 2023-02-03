@@ -15,7 +15,8 @@ pacman::p_load(tidyverse,
                qiime2R,
                philr,
                glmnet,
-               ggtree)
+               ggtree,
+               patchwork)
 ```
 
 # Load data
@@ -105,7 +106,7 @@ glmmod <- glmnet(x=philr.dat,
                  y=metadata$TOTAL.EST.HFCS..per.year.in.grams.,
                  alpha=1
                  )
-top.coords <- as.matrix(coef(glmmod, s=500))
+top.coords <- as.matrix(coef(glmmod, s=3000))
 (top.coords <- top.coords[2:length(top.coords),])
 
 top.coords <- top.coords[order(abs(top.coords), decreasing=T)]
@@ -124,12 +125,54 @@ tc.names
 tc.nn <- name.to.nn(phy_tree(pseq.filt), top.coords)
 tc.colors <- c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99')
 
-p <- ggtree(tree, layout='fan') +
-  geom_balance(node=tc.nn[1], fill=tc.colors[1], alpha=0.6)
+p <- ggtree(tree) +
+    geom_balance(node=tc.nn[1], fill=tc.colors[1], alpha=0.6) +
+    geom_balance(node=tc.nn[2], fill=tc.colors[2], alpha=0.6) +
+    geom_balance(node=tc.nn[3], fill=tc.colors[3], alpha=0.6) +
+    geom_balance(node=tc.nn[4], fill=tc.colors[4], alpha=0.6) +
+    geom_balance(node=tc.nn[5], fill=tc.colors[5], alpha=0.6)
 
-annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[1], 
+p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[1], 
                  p=p, 
-                 labels=str_split(tc.names[1],pattern="/") %>% unlist(),
+                 labels=paste0(rep(top.coords[1],2), c("+", "-")),
+                 offset.text=0.15, bar=FALSE)
+p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[2], 
+                 p=p, 
+                 labels=paste0(rep(top.coords[2],2), c("+", "-")),
                  offset.text=0.15, bar=FALSE)
 
+p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[3], 
+                 p=p, 
+                 labels=paste0(rep(top.coords[3],2), c("+", "-")),
+                 offset.text=0.15, bar=FALSE)
+p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[4], 
+                 p=p, 
+                 labels=paste0(rep(top.coords[4],2), c("+", "-")),
+                 #labels=c("",""),
+                 offset.text=0.15, bar=FALSE)
+p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[5], 
+                 p=p, 
+                 labels=paste0(rep(top.coords[5],2), c("+", "-")),
+                 #labels=c("",""),
+                 offset.text=0.15, bar=FALSE)
+p
+
+```
+
+# Boxplots
+```{r}
+philr.long <- convert_to_long(philr.dat, labels=metadata$TOTAL.EST.HFCS..per.year.in.grams.) %>%
+  filter(coord %in% top.coords[1:5])
+
+scatter.labels <- paste(names(tc.names), tc.names, sep=": ")
+names(scatter.labels) <- names(tc.names)
+
+p2 <- ggplot(philr.long, aes(x=labels, y=value)) +
+  geom_point(fill='lightgrey') +
+  facet_wrap(.~coord, scales='free', ncol=1,
+             labeller=labeller(coord=scatter.labels)) +
+  labs(x = '', y = 'Balance Value') +
+  theme_bw()
+
+p + p2 + plot_layout(widths = c(2, 1))
 ```
