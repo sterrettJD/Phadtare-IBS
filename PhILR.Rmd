@@ -13,7 +13,9 @@ pacman::p_load(tidyverse,
                ggplot2,
                phyloseq,
                qiime2R,
-               philr)
+               philr,
+               glmnet,
+               ggtree)
 ```
 
 # Load data
@@ -67,4 +69,67 @@ otu_table(pseq.filt) <- otu_table(temp.tab, taxa_are_rows=T)
 otu_table(pseq.filt)
 ```
 
-# 
+# Process Tree
+```{r}
+if(ape::is.rooted(phy_tree(pseq.filt)) == T){
+    "Tree is rooted."
+} else {
+    "TREE IS NOT ROOTED"
+}
+
+if(ape::is.binary(phy_tree(pseq.filt)) == T){
+    "Tree is binary."
+} else {
+    "TREE IS NOT BINARY"
+}
+
+# rename nodes to be "n1, n2, ..."
+tree <- ape::makeNodeLabel(phy_tree(pseq.filt), method="number", prefix='n')
+phy_tree(pseq.filt) <- tree
+
+# name a balance to check
+name.balance(tree, tax_table(pseq.filt), 'n1')
+
+```
+
+# Perform PhILR
+```{r}
+philr.dat <- philr(otu_table(pseq.filt) %>% t(), # have to transpose the otu table
+                  phy_tree(pseq.filt),
+                  part.weights='enorm.x.gm.counts', 
+                  ilr.weights='blw.sqrt')
+
+metadata <- sample_data(pseq.filt) %>% as.data.frame()
+
+glmmod <- glmnet(x=philr.dat,
+                 y=metadata$TOTAL.EST.HFCS..per.year.in.grams.,
+                 alpha=1
+                 )
+top.coords <- as.matrix(coef(glmmod, s=500))
+(top.coords <- top.coords[2:length(top.coords),])
+
+top.coords <- top.coords[order(abs(top.coords), decreasing=T)]
+top.coords <- top.coords[top.coords != 0]
+top.coords.values <- top.coords
+top.coords <- names(top.coords)
+
+
+
+tc.names <- sapply(top.coords, function(x) name.balance(phy_tree(pseq), tax_table(pseq), x))
+tc.names
+```
+
+# Tree
+```{r}
+tc.nn <- name.to.nn(phy_tree(pseq.filt), top.coords)
+tc.colors <- c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99')
+
+p <- ggtree(tree, layout='fan') +
+  geom_balance(node=tc.nn[1], fill=tc.colors[1], alpha=0.6)
+
+annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[1], 
+                 p=p, 
+                 labels=str_split(tc.names[1],pattern="/") %>% unlist(),
+                 offset.text=0.15, bar=FALSE)
+
+```
