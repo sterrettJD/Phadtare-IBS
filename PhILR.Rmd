@@ -18,7 +18,7 @@ pacman::p_load(tidyverse,
 
 # Load data
 ```{r}
-pseq <- qiime2R::qza_to_phyloseq(features="Data/core-metrics-results/rarefied_table.qza",
+pseq <- qiime2R::qza_to_phyloseq(features="Data/noMito_noChloro-filtered-table.qza",
                          taxonomy="Data/taxonomy-silva.qza",
                          tree="Data/insertion-tree.qza",
                          metadata="Data/IBS-metadata.txt")
@@ -27,16 +27,11 @@ pseq <- qiime2R::qza_to_phyloseq(features="Data/core-metrics-results/rarefied_ta
 
 # Filter low-abundance ASVs
 ```{r}
-pseq %>% subsetByPrevalentTaxa(
-                               detection = 3,
-                               prevalence = 20/100,
-                               as_relative = FALSE)
-
 orig.asvs <- nrow(otu_table(pseq))
-# keep only the ASVs found in more than 20% of samples
+# keep only the ASVs found in more than 10% of samples
 
 pseq.filt <- filter_taxa(pseq, 
-                         function(x) sum(x>0) > (0.2*length(x)), 
+                         function(x) sum(x>0) > (0.1*length(x)), 
                          prune=T
                          )
 presence.filt.remaining <- nrow(otu_table(pseq.filt))
@@ -47,8 +42,29 @@ pseq.filt <- filter_taxa(pseq.filt,
                          prune=T
                          )
 phylo.filt.final.remaining <- nrow(otu_table(pseq.filt))
+
+# filter taxa that aren't very variable
+pseq.filt <- filter_taxa(pseq.filt, 
+                         function(x) sd(x)/mean(x) > 3.0, 
+                         prune=T
+                         )
+
+phylo.filt.final.remaining.variable <- nrow(otu_table(pseq.filt))
+
 cat(paste("Original features:", orig.asvs,
             "\nAfter first filtering step:", presence.filt.remaining,
-            "\nAfter second filtering step:", phylo.filt.final.remaining))
+            "\nAfter second filtering step:", phylo.filt.final.remaining,
+            "\nAfter third (variability) filtering step:", phylo.filt.final.remaining.variable))
 
+pseq.filt # check n features
+
+# add pseudocount
+temp.tab <- otu_table(pseq.filt) %>% as.data.frame()
+temp.tab[temp.tab==0] <- 1
+otu_table(pseq.filt) <- otu_table(temp.tab, taxa_are_rows=T)
+
+# check there are no zeros
+otu_table(pseq.filt)
 ```
+
+# 
