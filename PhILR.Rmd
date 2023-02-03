@@ -67,7 +67,7 @@ temp.tab[temp.tab==0] <- 1
 otu_table(pseq.filt) <- otu_table(temp.tab, taxa_are_rows=T)
 
 # check there are no zeros
-otu_table(pseq.filt)
+head(otu_table(pseq.filt))
 ```
 
 # Process Tree
@@ -116,23 +116,8 @@ top.coords <- names(top.coords)
 
 
 
-tc.names <- sapply(top.coords, function(x) name.balance(phy_tree(pseq), tax_table(pseq), x))
+tc.names <- sapply(top.coords, function(x) name.balance(phy_tree(pseq.filt), tax_table(pseq.filt), x))
 tc.names
-
-for(c in top.coords){
-
-    initial.name <- name.balance(phy_tree(pseq), tax_table(pseq), c)
-    
-    if(grepl("Kingdom", initial.name)){
-        print("------------")
-        print(c)
-        votes <- name.balance(phy_tree(pseq), tax_table(pseq), c, return.votes=c("up", "down"))
-        print("up:")
-        print(votes$up.votes)
-        print("down:")
-        print(rbindvotes$down.votes)
-    }
-}
 
 ```
 
@@ -192,8 +177,184 @@ p2 <- ggplot(philr.long, aes(x=labels, y=value, color=coord)) +
   facet_wrap(.~coord,
              scales='free', ncol=1,
              labeller=labeller(coord=scatter.labels)) +
-  labs(x = '', y = 'Balance Value') +
+  labs(x = 'Estimated HFCS (g/month)', y = 'Balance Value') +
   theme_bw()
 
 p + p2 + plot_layout(widths = c(2, 1))
+
+ggsave("Figures/HFCS_PhILR.pdf", height=10, width=14)
+```
+
+# Balance contents {.tabset}
+```{r, results='asis'}
+
+asv.node <- philr(otu_table(pseq.filt) %>% t(), # have to transpose the otu table
+                  phy_tree(pseq.filt),
+                  part.weights='enorm.x.gm.counts', 
+                  ilr.weights='blw.sqrt',return.all=T)$sbp
+
+tax.table <- tax_table(pseq.filt) %>% as.data.frame()
+
+
+make_num_summary <- function(curr.node){
+    num <- this.node[this.node==1]
+    num.asvs <- names(num)
+    
+    tax.table[num.asvs,] %>% 
+        as.data.table() %>% 
+        mutate_all(as.factor) %>% 
+        summary() %>% knitr::kable()
+}
+
+make_num_full <- function(curr.node){
+    num <- this.node[this.node==1]
+    num.asvs <- names(num)
+    
+    tax.table[num.asvs,] %>% knitr::kable()
+}
+
+
+make_denom_summary <- function(curr.node){
+    denom <- this.node[this.node==-1]
+    denom.asvs <- names(denom)
+    
+    tax.table[denom.asvs,] %>% 
+        as.data.table() %>% 
+        mutate_all(as.factor) %>% 
+        summary() %>% knitr::kable()
+}
+
+make_denom_full <- function(curr.node){
+    denom <- this.node[this.node==-1]
+    denom.asvs <- names(denom)
+    
+    tax.table[denom.asvs,] %>% knitr::kable()
+}
+
+
+
+```
+## n14 {.tabset}
+```{r}
+c <- "n14"
+
+this.node <- asv.node[,c]
+
+```
+
+### Numerator summary
+```{r}
+make_num_summary(this.node)
+```
+### Numerator full table
+```{r}
+make_num_full(this.node)
+```
+### Denominator summary
+```{r}
+make_denom_summary(this.node)
+```
+### Denominator full table
+```{r}
+make_denom_full(this.node)
+```
+
+## n55 {.tabset}
+```{r}
+c <- "n55"
+
+this.node <- asv.node[,c]
+
+```
+
+### Numerator summary
+```{r}
+make_num_summary(this.node)
+```
+### Numerator full table
+```{r}
+make_num_full(this.node)
+```
+### Denominator summary
+```{r}
+make_denom_summary(this.node)
+```
+### Denominator full table
+```{r}
+make_denom_full(this.node)
+```
+
+## n15 {.tabset}
+```{r}
+c <- "n15"
+
+this.node <- asv.node[,c]
+
+```
+
+### Numerator summary
+```{r}
+make_num_summary(this.node)
+```
+### Numerator full table
+```{r}
+make_num_full(this.node)
+```
+### Denominator summary
+```{r}
+make_denom_summary(this.node)
+```
+### Denominator full table
+```{r}
+make_denom_full(this.node)
+```
+
+## n119 {.tabset}
+```{r}
+c <- "n119"
+
+this.node <- asv.node[,c]
+
+```
+
+### Numerator summary
+```{r}
+make_num_summary(this.node)
+```
+### Numerator full table
+```{r}
+make_num_full(this.node)
+```
+### Denominator summary
+```{r}
+make_denom_summary(this.node)
+```
+### Denominator full table
+```{r}
+make_denom_full(this.node)
+```
+
+## n2 {.tabset}
+```{r}
+c <- "n2"
+
+this.node <- asv.node[,c]
+
+```
+
+### Numerator summary
+```{r}
+make_num_summary(this.node)
+```
+### Numerator full table
+```{r}
+make_num_full(this.node)
+```
+### Denominator summary
+```{r}
+make_denom_summary(this.node)
+```
+### Denominator full table
+```{r}
+make_denom_full(this.node)
 ```
