@@ -16,4 +16,39 @@ pacman::p_load(tidyverse,
                philr)
 ```
 
-#
+# Load data
+```{r}
+pseq <- qiime2R::qza_to_phyloseq(features="Data/core-metrics-results/rarefied_table.qza",
+                         taxonomy="Data/taxonomy-silva.qza",
+                         tree="Data/insertion-tree.qza",
+                         metadata="Data/IBS-metadata.txt")
+
+```
+
+# Filter low-abundance ASVs
+```{r}
+pseq %>% subsetByPrevalentTaxa(
+                               detection = 3,
+                               prevalence = 20/100,
+                               as_relative = FALSE)
+
+orig.asvs <- nrow(otu_table(pseq))
+# keep only the ASVs found in more than 20% of samples
+
+pseq.filt <- filter_taxa(pseq, 
+                         function(x) sum(x>0) > (0.2*length(x)), 
+                         prune=T
+                         )
+presence.filt.remaining <- nrow(otu_table(pseq.filt))
+
+# keep only the ASVs that we have at least 100 reads of
+pseq.filt <- filter_taxa(pseq.filt, 
+                         function(x) sum(x) > 100, 
+                         prune=T
+                         )
+phylo.filt.final.remaining <- nrow(otu_table(pseq.filt))
+cat(paste("Original features:", orig.asvs,
+            "\nAfter first filtering step:", presence.filt.remaining,
+            "\nAfter second filtering step:", phylo.filt.final.remaining))
+
+```
