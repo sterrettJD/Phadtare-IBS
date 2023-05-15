@@ -114,7 +114,12 @@ top.coords <- top.coords[top.coords != 0]
 top.coords.values <- top.coords
 top.coords <- names(top.coords)
 
-
+# get summary stats for selected features regression
+m.formula <- paste(top.coords, collapse=" + ")
+m.formula <- paste0("metadata$TOTAL.EST.HFCS..per.year.in.grams. ~ ", m.formula)
+m <- lm(as.formula(m.formula),
+        data=as.data.frame(philr.dat))
+summary(m)
 
 tc.names <- sapply(top.coords, function(x) name.balance(phy_tree(pseq.filt), tax_table(pseq.filt), x))
 tc.names
@@ -161,7 +166,7 @@ p
 ```
 
 # Boxplots
-```{r}
+```{r, fig.height=10, fig.width=14}
 philr.long <- convert_to_long(philr.dat, labels=metadata$TOTAL.EST.HFCS..per.year.in.grams.) %>%
   filter(coord %in% top.coords)
 
