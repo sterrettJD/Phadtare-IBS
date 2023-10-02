@@ -149,13 +149,14 @@ p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[2],
 
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[3], 
                  p=p, 
-                 labels=paste(rep(top.coords[3],2), c("num", "denom")),
-                 offset.text=0.15, bar=FALSE)
+                 #labels=paste(rep(top.coords[3],2), c("num", "denom")),
+                 labels=c("", "n15"),
+                 offset.text=0.05, bar=FALSE)
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[4], 
                  p=p, 
-                 labels=paste(rep(top.coords[4],2), c("num", "denom")),
-                 #labels=c("",""),
-                 offset.text=0.15, bar=FALSE)
+                 #labels=paste(rep(top.coords[4],2), c("num", "denom")),
+                 labels=c("n2",""),
+                 offset.text=0.05, bar=FALSE)
 p <- annotate_balance(tr=phy_tree(pseq.filt), coord=top.coords[5], 
                  p=p, 
                  labels=paste(rep(top.coords[5],2), c("num", "denom")),
@@ -183,6 +184,7 @@ p2 <- ggplot(philr.long, aes(x=labels, y=value, color=coord)) +
              scales='free', ncol=1,
              labeller=labeller(coord=scatter.labels)) +
   labs(x = 'Estimated HFCS (g/month)', y = 'Balance Value') +
+  scale_x_continuous(labels = scales::comma) +
   theme_bw()
 
 p + p2 + plot_layout(widths = c(2, 1))
