@@ -1,0 +1,46 @@
+Sampleid	Age	Sex	Educ	Race	Marrital sts	Curr zipcode	HH income	BMI	People per HH	Smoke	Cig per day	Alcohol	Drinks per week	Past H pylori infection	Curr H pylori infection	IBS	IBS Type	IBS medications	Colonoscopy	Colonoscopy outcome	Endoscopy	Endoscopy outcome	Hypertension	Diabetes	High cholesterol	Depression	Level of Depression	Antidepressant	Anxiety	Level of anxiety	PTSD	Bipolar	Psychosis	Recreational Drugs	Food triggers	FODMAP diet	TOTAL EST HFCS (per month in grams)	TOTAL EST HFCS (per year in grams)	TOTAL HFCS per year (pounds)
+HBC 115	1	M	Graduate	Caucasian	Single	19102	"upto 23,000"	22.7	2	N		Y	0.75	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	209.2	2510.4	5.53
+HBC 114	1	F	Graduate	Caucasian	Single	19146	"upto 23,000"	22.9	2	N		Y	4	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	263.3	3159.6	6.97
+IBS control 3	1	M	Graduate	Caucasian	Single	08054	"upto 23,000"	21.5	1	N		Y	3.5	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	212	2544	5.61
+HBC 112	1	M	Graduate	Caucasian	Single	19106	"upto 23,000"	24.4	1	N		Y	0.4	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	578.4	6940.82	15.3
+HBC 111	1	F	Graduate	Asianamerican	Single	19107	"upto 23,000"	20.8	1	N		Y	0.4	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	195.19	2342.28	5.16
+IBS control  6	1	F	Graduate	Asianamerican	Single	08852	"upto 23,000"	20.9	1	N		Y	1	N	N	N	control		N		Y	normal	N	N	N	N			N		N	N	N	N		N	1073.53	12882.32	28.4
+HBC 109	1	M	Graduate	Caucasian	Single	19144	"upto 23,000"	31	3	N		Y	14	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	468.98	5627.81	12.41
+HBC 108	1	M	Graduate	Caucasian	Single	19102	"upto 23,000"	25.1	2	N		Y	5	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	986.17	11834	26.09
+IBS control 9	1	F	Graduate	Africanamerican	Single	08103	"upto 23,000"	22.3	1	N		Y	0.25	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	462.27	5547.18	12.23
+HBC 106	1	F	Graduate	Caucasian	Single	19103	"upto 23,000"	20.5	1	N		Y	3	N	N	N	control		N		N		N	N	N	N			N		N	N	N	N		N	166.34	1996.08	4.4
+HBC 104	3	M	Postgraduate	Caucasian	Married	19151	">100,000"	25.1	5	N		Y	3.5	N	N	N	control		Y	normal	N		Y	N	N	N			N		N	N	N	N		N	22	264	0.58
+IBS control 12	3	F	Graduate	Caucasian	Married	19151	">100,000"	20.5	2	N		Y	1.5	N	N	N	control		Y		N		N	N	N	N			N		N	N	N	N		N	37.2	446.4	0.98
+IBS M1	1	M	Graduate	Caucasian	Single	08033	"upto 23,000"	26.4	2	N		Y	1	N	N	Y	IBS-M	loperamide; fiber suppliments	N		N		N	N	N	N			N		N	N	N	N	"ranch dressing, vodka, fried food"	N	2513.26	30159.189	66.48
+IBS M2	4	F	technicalschool	Africanamerican	Divorced	08052	"upto 23,000"	27.4	1	N		Y	2	N	N	Y	IBS-M	N	N		N		Y	N	N	N			N		N	N	N	N	"combo of veggies, ice cream, coffee, cheese"	N	711.5	8538.4	18.82
+IBS M7	1	F	Undergraduate	Caucasian	Married	08096	"24,000-60,000"	23.4	2	N		N		N	N	Y	IBS-M	N	Y	IBS	Y	normal	N	N	N	Y	mild		Y	moderate	N	N	N	N	"whole milk, ice cream, spices, corn"	N	2217.7725	26613.27	58.67123016
+IBS N18	5	F	Postgraduate	Caucasian	Married	08107	"61,000-100,000"	26.6	2	N		Y	0.4	N	N	Y	IBS-M	N	Y	polyps removed	N		N	N	N	N	depression in the past		N	past	N	N	N	N	"coffee, milk products, sugar"	N	412.65	4951.725	10.9
+IBS M9	2	F	Postgraduate	Caucasian	Widowed	08080	">100,000"	43.5	1	N		N		N	N	Y	IBS-M	N	Y	normal	N		Y	N	Y	N			N		N	N	N	N	chocolate	N	263.4	3160.4	6.973
+IBS N20	1	F	Graduate	Asianamerican	Single	08043	"upto 23,000"	17.2	1	N		Y	2.5	N	N	Y	IBS-M	N	N		N		N	N	N	N			N		N	N	N	N	"potatoes, high startch food"	N	296.68	3560.15	7.85
+IBS N19	4	F	Graduate	Caucasian	Married	10583	">100,000"	29.3	3	N		Y	7	N	N	Y	IBS-M	lomatil	Y	polyps removed	N		Y	N	N	N			N		N	N	N	N	alcohol	N	672.48	8069.76	17.79
+IBS N17	1	F	Undergraduate	Caucasian	Single	10583	">100,000"	23.4	3	N		Y	4.5	N	N	Y	IBS-M	N	N		N		N	N	N	N			Y	moderate	N	N	N	Y	"wine, alcohol, spicy food"	N	1657.33	19887.9	43.84
+IBS N9	4	F	Graduate	Caucasian	Single	08610	"upto 23,000"	40.7	1	N		Y	0.4	N	N	Y	IBS-M	N	N		Y	inflammation	Y	N	Y	Y	moderate	N	Y	moderate	N	N	N	N	"gravy, meats"	N	507.15	6085.74	13.42
+IBS N10	1	F	Highschool	Caucasian	Single	08003	"24,000-60,000"	21.9	1	N		Y	1.5	N	N	Y	IBS-M	N	N		N		N	N	N	Y	moderate	N	Y	moderate	N	N	N	N	"dariy, sugar, caffiene"	N	720.9	8650.75	19.07
+IBS N15	2	F	Highschool	Caucasian	Single	08049	"24,000-60,000"	31.3	4	Y	5	Y	1	N	N	Y	IBS-M	bentyl (Dicycloverine)	Y	normal	Y	normal	N	N	N	N			Y	mild	N	N	N	N	"milk, fried food"	N	1538.19	18458.3	40.69
+IBS N11	6	M	Graduate	Caucasian	Married	08034	">100,000"	22.1	2	N		N		N	N	Y	IBS-M	N	Y	normal	Y	normal	N	N	N	N		Y	Y	mild	N	N	N	N	"fatty, oily and acidic foods"	N	51.15	613.9	1.35
+IBS N6	5	F	Graduate	Caucasian	Married	08096	">100,000"	23.7	2	N		N		N	N	Y	IBS-M	librax	Y	polyps removed	N		N	N	N	Y	mild		Y	mild	N	N	N	N	"sugar, sweets, chocolate, chips, mayo, salad dressing"	N	489.65	5875.74	12.95
+IBS D4	3	F	Postgraduate	Caucasian	Married	08094	">100,000"	25.2	4	N		Y	3.5	N	N	Y	IBS-D	imodium 	Y	normal	Y	normal except eosinophilic esophagitis	N	N	N	N			N		N	N	N	N	"chocolate, fried foods, milk/dairy"	N	4698.02	56376.26	124.29
+IBS D5	6	M	Undergraduate	Caucasian	Married	08108	">100,000"	34.4	2	N		Y	17.5	N	N	Y	IBS-D	colestipol	Y	normal	Y	normal	Y	N	Y	Y	mild	Y	N		N	N	N	N	fatty foods due to gallbladder removal	N	1711.18	20534.18	45.27
+IBS D6	6	F	lessthanhighschool	Africanamerican	Single	08103	"upto 23,000"	32.9	2	N		N		N	N	Y	IBS-D	viberzi	Y	unsure	Y	unsure	Y	Y	Y	Y	severe	Y	Y	severe	Y	Y	N	N		N	768.08	9216.97	20.32
+IBS D9	5	F	Undergraduate	Caucasian	Single	08051	"61,000-100,000"	21.8	2	N		N		N	N	Y	IBS-D	Alinia	Y	normal	Y	normal	N	pre-diabetic	Y	N			N		N	N	N	N	stress	N	796.48	9557.76	21.07
+IBS N12	1	M	Graduate	Caucasian	Single	08051	">100,000"	17.9	4	N		Y	3	N	N	Y	IBS-D	N	N		N		N	N	N	N			N		N	N	N	N	"wings, anything spicy"	N	1450.24	17402.92	38.37
+IBS N8	1	M	highschool	caucasian 	Single	08021	"61,000-100,000"	33.7	3	N		N		N	N	Y	IBS-D	dicyclomine	N		N		Y	N	N	Y	moderate	Y	Y	moderate	N	N	N	N	"soda, sugary foods"	N	560.75	6728.96	14.83
+IBS N5	1	F	Graduate	Nonwhitehispanic	Single	08103	"upto 23,000"	19.9	2	N		Y	2.5	N	N	Y	IBS-D	N	N		N		N	N	N	N			N		N	N	N	N	spices	N	431.68	5180.15	11.42
+IBS N21	3	M	Highschool	Caucasian	Married	08322	" >100,000"	27	3	N		N		N	N	Y	IBS-D	antacid	Y	normal	Y	normal	N	N	N	N			N		N	N	N	N		N	810.27	9723.26	21.44
+IBS N14	4	F	Highschool	Caucasian	Married	08077	">100,000"	35.8	4	N		Y	3	N	N	Y	IBS-D	N	Y	normal	Y	normal	N	Y	N	N			Y	mild	N	N	N	N		N	680.8	8169.59	18.01
+IBS N13	1	M	Undergraduate	Caucasian	Single	08108	"61,000-100,000"	17.5	2	N		N		N	N	Y	IBS-D	N	N		Y	normal	N	N	N	N			N		N	N	N	Y	spices	N	1959.33	23511.96	51.83
+IBS C1	6	F	Undergraduate	Caucasian	Married	08051	"24,000-60,000"	36.3		N		N		N	N	Y	IBS-C	N	Y	normal	Y	normal	Y	Y	N	Y	moderate	Y	Y	moderate	N	N	N	N	"chocolate,vegetables, alcohol"	N	3220.69	38648.33	85.2
+IBS C3	1	F	Undergraduate	Caucasian	Married	8002	">100,000"	26.6	3	N		N		N	N	Y	IBS-C	Collace	N		N		N	N	N	N			N		N	N	N	N	"fatty foods, seafood"	N	1144.6	13735.2	30.28
+IBS N3	1	F	Graduate	Caucasian	Single	08102	"24,000-60,000"	21.6	1	N		Y	1	N	N	Y	IBS-C	"probiotics, L-glutamine"	Y	normal	Y	unsure	N	N	N	N			N		N	N	N	N	"vegetables, spices, carbs"	Y	470.36	5644.37	12.44
+IBS C5	1	F	Graduate	Caucasian	Single	8034	"24,000-60,000"	34.4	3	N		Y	1	N	N	Y	IBS-C	N	N		N		N	N	N	N			N		N	N	N	N	"dairy, vegetables, carbs, proteins"	N	885.35	10624.22	23.42
+IBS N22	3	F	Undergraduate	Asianamerican	Married	8105	"24,000-60,000"	44.1	3	N		N		N	N	Y	IBS-C	"Movantik, Naloxegel"	Y	normal	Y	normal	N	N	N	N			N		N	N	N	N	"dairy, vegetables, proteins"	Y	2707.06	32484.69	71.62
+IBS N7	3	F	Undergraduate	Caucasian	Married	8080	"61,000-100,000"	26.5	5	N		Y	6	N	N	Y	IBS-C	Amatiza	Y	polyps removed	N		Y	N	Y	Y	moderate	Y	Y	mild	Y	N	N	N		N	1129.45	13553.43	29.88
+IBS N4	2	F	Postgraduate	Caucasian	Single	60657	"upto 23,000"	24	1	N		Y	5	N	N	Y	IBS-C	N	N		N		N	N	N	Y	mild	Y	Y	mild	N	N	N	Y	dairy  	N	633.61	7603.27	16.76
+IBS N2	3	F	Undergraduate	Caucasian	Divorced	08003	">100,000"	22.7	3	N		N		N	N	Y	IBS-C	N	Y	polyps removed	N		N	N	N	N			N		N	N	N	N		N	501.85	6022.17	13.28
+IBS N1	4	F	Graduate	Caucasian	Married	8361	"24,000-60,000"	23.4	2	N		N		N	N	Y	IBS-C	Hycosamine	Y	polyps removed	N		N	N	N	Y	mild	Y	N		N	Y	N	N	"fatty foods, spices"	N	1999.43	23993.14	52.89
+IBS N16	5	F	Undergraduate	Caucasian	Widowed	8080	"24,000-60,000"	24.3	1	N		N		Y	N	Y	IBS-C	Linaclotide	Y	polyps removed	Y	unsure	Y	N	N	Y	mild	Y	N		N	N	N	N	vegetables   	Y	1515.67	18188.03	40.1
